@@ -7,3 +7,9 @@
     display: inline-table;
     margin-top: 12px;
 }
+
+img {
+    max-width: 400px;
+    position: relative absolute;
+    display: inline-block;
+}
