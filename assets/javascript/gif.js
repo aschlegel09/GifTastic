@@ -15,7 +15,7 @@ function displayGif() {
   var queryURL =
     "https://api.giphy.com/v1/gifs/search?api_key=PAHxaCpTlyPZHaybJOdnx8wPhTphyBTp&q=" +
     gif +
-    "&limit=10&offset=0&rating=G&lang=en"; //basic string to create link
+    "&limit=10&offset=0&rating=&lang=en"; //basic string to create link
   //WORKS:
   // Creating an AJAX call for the specific gif button being clicked
   $.ajax({
@@ -23,34 +23,38 @@ function displayGif() {
     method: "GET"
   }).then(function(response) {
     // Looping through the array of gifs
-    for (var i = 0; i < gifs.length; i++) {
+    for (var i = 0; i < 11; i++) {
       // Then dynamicaly generating divs for each gif in the array.
       // This code $("<div>") is all jQuery needs to create the start and end tag. (<div></div>)
       var gifDiv = $("<div>");
       // Adding a class
       gifDiv.addClass("gif-div");
       // Providing the div's text with a value of the gif at index i
-      gifDiv.text(gifs[i]);
-      //   gifDiv.text(gifs[i].response);
+      // gifDiv.text(gifs[i]);//responsible for the data-name text next to image. edit gif-div class to format
 
-      var dataArr = $(response.data);
-      console.log(dataArr);
-//WORKS
-      for (x = 0; x < dataArr.length < 11; x++) {
-        //TODO: Make this loop for all gifs in array
-        var imgURL = response.data[x].images.original_still.url;
+      var imgURL = response.data[i].images.original_still.url;
 
-        var image = $("<img>").attr("src", imgURL);
+      var image = $("<img>").attr("src", imgURL);
 
-        gifDiv.prepend(image);
+      gifDiv.prepend(image);
 
-        var rating = "<h4>Rating: " + response.data[x].rating + "</h4>";
+      var rating =
+        "<h4><strong>Rating: " + response.data[i].rating + "</strong></h4>";
 
-        gifDiv.prepend(rating);
+      gifDiv.prepend(rating);
 
-        //   $("#gif-div").append(gifDiv);
-        $("#gif-view").prepend(gifDiv);
+      //   $("#gif-div").append(gifDiv);
+      $("#gif-view").prepend(gifDiv);
+
+      var animated = response.data[i].images.original.url;
+      var gifMoved = $("<img>").attr("src", animated);
+
+      function moveGif() {
+        $(".gif-div").html(gifMoved);
+        console.log(gifMoved);
       }
+      // // This function handles events where gifdiv button is clicked
+      $(document).on("click", ".gif-div", moveGif);
     }
   });
 }
@@ -62,16 +66,16 @@ function renderButtons() {
   $("#gif-button").empty();
 
   // Looping through the array of gifs
-  for (var i = 0; i < gifs.length; i++) {
+  for (var x = 0; x < gifs.length; x++) {
     // Then dynamicaly generating buttons for each gif in the array.
     // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
     var gifButton = $("<button>");
     // Adding a class
     gifButton.addClass("gif-button");
     // Adding a data-attribute with a value of the gif at index i
-    gifButton.attr("data-name", gifs[i]);
+    gifButton.attr("data-name", gifs[x]);
     // Providing the button's text with a value of the gif at index i
-    gifButton.text(gifs[i]);
+    gifButton.text(gifs[x]);
     // Adding the button to the HTML
     $("#gif-button").append(gifButton);
   }
@@ -93,9 +97,7 @@ $("#add-gif").on("click", function(event) {
   // calling renderButtons which handles the processing of our gif array
   renderButtons();
 });
-
-// Adding a click event listener to all elements with a class of "gif-button"
-$(document).on("click", ".gif-button", displayGif);
-
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
+// Adding a click event listener to all elements with a class of "gif-button"
+$(document).on("click", ".gif-button", displayGif);
