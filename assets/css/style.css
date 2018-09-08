@@ -3,17 +3,36 @@
     background-color: pink;
     border: solid 2px;
     border-color: navy;
-    position: relative absolute;
-    display: inline-table;
+    /* position: relative; */
+    /* display: inline-table; */
     margin-top: 12px;
+    overflow: hidden;
+    clear: both; 
 }
 
 img {
-    max-width: 400px;
-    position: relative absolute;
-    display: inline-block;
+    max-width: 200px;
+    max-height: 200px;
+    position: relative;
+    display: inline-table;
 }
 
 .gif-div {
     font-size: 24px;
+    float: left;
+    clear: both; 
+}
+
+
+.gifMove {
+    font-size: 24px;
+}
+
+.gif-button {
+    padding: 5px 5px 5px 5px;
+    margin-right: 5px;
+    background-color: navy;
+    color: white;
+    border-radius: 10px;
+    border: solid 2px pink;
 }

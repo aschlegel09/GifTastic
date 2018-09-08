@@ -15,7 +15,7 @@ function displayGif() {
   var queryURL =
     "https://api.giphy.com/v1/gifs/search?api_key=PAHxaCpTlyPZHaybJOdnx8wPhTphyBTp&q=" +
     gif +
-    "&limit=10&offset=0&rating=&lang=en"; //basic string to create link
+    "&limit=10&offset=0&rating=G&lang=en"; //basic string to create link
   //WORKS:
   // Creating an AJAX call for the specific gif button being clicked
   $.ajax({
@@ -34,27 +34,36 @@ function displayGif() {
 
       var imgURL = response.data[i].images.original_still.url;
 
-      var image = $("<img>").attr("src", imgURL);
+      var still = $("<img>").attr("src", imgURL);
 
-      gifDiv.prepend(image);
+      gifDiv.prepend(still);
 
       var rating =
         "<h4><strong>Rating: " + response.data[i].rating + "</strong></h4>";
 
       gifDiv.prepend(rating);
 
-      //   $("#gif-div").append(gifDiv);
       $("#gif-view").prepend(gifDiv);
 
       var animated = response.data[i].images.original.url;
-      var gifMoved = $("<img>").attr("src", animated);
 
-      function moveGif() {
-        $(".gif-div").html(gifMoved);
-        console.log(gifMoved);
+      var giphy = $("<img>").attr("src", animated);
+
+      var thisGif = $(this.giphy);
+      console.log(thisGif);
+
+    function moveGif() {
+
+        $(this).removeClass("gif-div");
+
+        $(this).addClass("gifMove");
+
+        $(".gifMove").append(giphy);
+
+        console.log(giphy);
       }
       // // This function handles events where gifdiv button is clicked
-      $(document).on("click", ".gif-div", moveGif);
+      $(document).on("click", moveGif);
     }
   });
 }
