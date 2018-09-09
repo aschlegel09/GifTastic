@@ -1,12 +1,32 @@
 // Initial array of gifs
 var gifs = [
-  "dancing food",
-  "funny animals",
-  "stand up fails",
-  "dad jokes",
-  "cute cats",
-  "llamas",
-  "favorite cartoons"
+  "Aziz Ansari",
+  "Louis C.K.",
+  "Kevin Hart",
+  "Chris Rock",
+  "Jerry Seinfeld",
+  "Dave Chappelle",
+  "Amy Schumer",
+  "Eddie Murphy",
+  "Joe Rogan",
+  "Sarah Silverman",
+  "Robin Williams",
+  "Sacha Baron Cohen",
+  "Bill Cosby",
+  "Ricky Gervais",
+  "Jim Gaffigan",
+  "Norm Macdonald",
+  "Adam Sandler",
+  "Conan O'Brien",
+  "Jon Stewart",
+  "Bill Murray",
+  "John Mulaney",
+  "Steve Martin",
+  "Bill Burr",
+  "Amy Poehler",
+  "Jim Carrey",
+  "Seth Rogen",
+  "Bernie Mac"
 ];
 
 function displayGif() {
@@ -15,59 +35,85 @@ function displayGif() {
   var queryURL =
     "https://api.giphy.com/v1/gifs/search?api_key=PAHxaCpTlyPZHaybJOdnx8wPhTphyBTp&q=" +
     gif +
-    "&limit=10&offset=0&rating=G&lang=en"; //basic string to create link
+    "&limit=10&offset=0&rating=PG&lang=en"; //basic string to create link
   //WORKS:
   // Creating an AJAX call for the specific gif button being clicked
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response) {
+    var resultingGifs = response.data;
     // Looping through the array of gifs
-    for (var i = 0; i < 11; i++) {
+    for (var i = 0; i < resultingGifs.length; i++) {
       // Then dynamicaly generating divs for each gif in the array.
       // This code $("<div>") is all jQuery needs to create the start and end tag. (<div></div>)
       var gifDiv = $("<div>");
-      // Adding a class
+
+      // Adding a class to the div
       gifDiv.addClass("gif-div");
-      // Providing the div's text with a value of the gif at index i
-      // gifDiv.text(gifs[i]);//responsible for the data-name text next to image. edit gif-div class to format
+      // gifDiv.attr("data-state", "still");
 
-      var imgURL = response.data[i].images.original_still.url;
+      // define variable equal to the still photo
+      var still = resultingGifs[i].images.original_still.url;
+      console.log(still);
+      console.log(resultingGifs);
 
-      var still = $("<img>").attr("src", imgURL);
+      // set variable equal to image gif from api
+      var gifImage = $("<img>").attr("src", still);
 
-      gifDiv.prepend(still);
+      gifImage.attr("data-state", "still");
+      gifImage.attr("data-still", still);
+      $("data-still").text("src", still);
 
+      // gifImage.attr("data-animate", "src", resultingGifs[i].images.original.url);
+
+      console.log(gifImage);
+      // append still image to gif div
+      gifDiv.prepend(gifImage);
+
+      // set rating equal to divs rating value
       var rating =
-        "<h4><strong>Rating: " + response.data[i].rating + "</strong></h4>";
+        "<h4><strong>Rating: " + resultingGifs[i].rating + "</strong></h4>";
 
+      // append it to the gif div view
       gifDiv.prepend(rating);
 
+      // append the gif div to the gif view section in html
       $("#gif-view").prepend(gifDiv);
 
-      var animated = response.data[i].images.original.url;
+      var animated = resultingGifs[i].images.original.url;
 
-      var giphy = $("<img>").attr("src", animated);
+      console.log(animated);
 
-      var thisGif = $(this.giphy);
-      console.log(thisGif);
+      gifImage.addClass("gifImage");
+      gifImage.attr("data-animate", animated);
+      $("data-animate").text("src", animated);
 
-    function moveGif() {
 
-        $(this).removeClass("gif-div");
+      // when user clicks on a gif div, run this function
+      $(gifImage).on("click", function(event) {
+        event.preventDefault();
+        // define variable equal to the animated gif
+        // set state variable equal to the data state attribute for that image
+        var state = $(this).attr("data-state");
+        // gifActive.addClass("da")
+        // if the state is equal to still, then set its attribute to animate and also its state from still to animate
+        // otherwise if state is already equal to animate, set the source to still and data state as well
+        // $(this).on
+        if (state == "still") {
+          // set variable equal to animated gif
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
 
-        $(this).addClass("gifMove");
+        } else if (state == "animate") {
 
-        $(".gifMove").append(giphy);
-
-        console.log(giphy);
-      }
-      // // This function handles events where gifdiv button is clicked
-      $(document).on("click", moveGif);
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        }
+      });
     }
   });
 }
-// WORKS
 // Function for displaying gif data
 function renderButtons() {
   // Deleting the gif buttons prior to adding new gif buttons

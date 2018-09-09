@@ -23,6 +23,13 @@ img {
     clear: both; 
 }
 
+gifImage {
+    
+    font-size: 24px;
+    float: left;
+    clear: both; 
+    margin-left: 12px;
+}
 
 .gifMove {
     font-size: 24px;
