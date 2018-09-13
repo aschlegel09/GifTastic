@@ -1,45 +1,85 @@
 #gif-view {
-    padding: 10px 10px;
-    background-color: pink;
-    border: solid 2px;
-    border-color: navy;
-    /* position: relative; */
-    /* display: inline-table; */
-    margin-top: 12px;
-    overflow: hidden;
-    clear: both; 
+  background-color: pink;
+  border: solid 2px;
+  border-color: navy;
+  margin-top: 12px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 450px;
+}
+
+.jumbotron {
+  background-image: url("https://myfilmviews.files.wordpress.com/2012/09/bill-murray1.jpg");
+  background-position: top center;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 95%;
+  background-size: 2500px;
 }
 
 img {
-    max-width: 200px;
-    max-height: 200px;
-    position: relative;
-    display: inline-table;
+  padding-left: 10px;
+  padding-right: 30px;
+  padding-bottom: 25px;
+  max-width: 400px;
+  max-height: 220px;
+  position: relative;
+  display: inline-table;
+}
+
+#title {
+  text-decoration: underline;
+  background-color: white;
+  font-weight: bolder;
+  text-align: center;
+  color: navy; 
+  font-weight: bolder;
+  font-size: 49px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .gif-div {
-    font-size: 24px;
-    float: left;
-    clear: both; 
+  float: left;
+  max-width: 75px;
+  max-height: 75px;
+  overflow: visible;
+  margin: 10px 150px 150px 0px;
+  padding: 20px 200px 150px 50px;
 }
 
-gifImage {
-    
-    font-size: 24px;
-    float: left;
-    clear: both; 
-    margin-left: 12px;
-}
-
-.gifMove {
-    font-size: 24px;
+#gif-button {
+    align-content: center;
+    text-align: center;
 }
 
 .gif-button {
-    padding: 5px 5px 5px 5px;
-    margin-right: 5px;
-    background-color: navy;
-    color: white;
-    border-radius: 10px;
-    border: solid 2px pink;
+  padding: 5px 5px 5px 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  background-color: navy;
+  color: white;
+  border-radius: 10px;
+  border: solid 2px pink;
+  align-content: center;
+  text-align: center; 
+}
+
+h5 {
+  margin-left: 10px;
+  overflow: visible;
+  position: relative;
+  display: block;
+}
+
+#add-gif {
+  background-color: pink; 
+  color: navy;
+  font-size: 17px;
+  border-radius: 10px;
+  font-weight: bolder;
+  margin-bottom: 25px;
 }

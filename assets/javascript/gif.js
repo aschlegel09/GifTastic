@@ -69,16 +69,17 @@ function displayGif() {
 
       console.log(gifImage);
       // append still image to gif div
-      gifDiv.prepend(gifImage);
+      // gifDiv.prepend(gifImage);
 
       // set rating equal to divs rating value
       var rating =
-        "<h4><strong>Rating: " + resultingGifs[i].rating + "</strong></h4>";
+        "<h5><strong>Rating: " + resultingGifs[i].rating + "</strong></h5>";
 
       // append it to the gif div view
       gifDiv.prepend(rating);
 
       // append the gif div to the gif view section in html
+      $(gifDiv).append(gifImage);
       $("#gif-view").prepend(gifDiv);
 
       var animated = resultingGifs[i].images.original.url;
