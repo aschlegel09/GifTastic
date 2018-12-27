@@ -41,7 +41,9 @@ function displayGif() {
   $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(response) {
+  }).then(function (response) {
+
+    $("#gif-view").empty();
     var resultingGifs = response.data;
     // Looping through the array of gifs
     for (var i = 0; i < resultingGifs.length; i++) {
@@ -92,8 +94,9 @@ function displayGif() {
 
 
       // when user clicks on a gif div, run this function
-      $(gifImage).on("click", function(event) {
+      $(gifImage).on("click", function (event) {
         event.preventDefault();
+
         // define variable equal to the animated gif
         // set state variable equal to the data state attribute for that image
         var state = $(this).attr("data-state");
@@ -138,7 +141,7 @@ function renderButtons() {
 }
 
 // This function handles events where one button is clicked
-$("#add-gif").on("click", function(event) {
+$("#add-gif").on("click", function (event) {
   // event.preventDefault() prevents the form from trying to submit itself.
   // We're using a form so that the user can hit enter instead of clicking the button if they want
   event.preventDefault();
@@ -147,11 +150,15 @@ $("#add-gif").on("click", function(event) {
   var gif = $("#gif-input")
     .val()
     .trim();
-  // The gif from the textbox is then added to our array
-  gifs.push(gif);
 
-  // calling renderButtons which handles the processing of our gif array
-  renderButtons();
+  if (gif === "") { return false; } 
+  else {
+    // The gif from the textbox is then added to our array
+    gifs.push(gif);
+
+    // calling renderButtons which handles the processing of our gif array
+    renderButtons();
+  }
 });
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
